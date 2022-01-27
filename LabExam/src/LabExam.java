@@ -4,8 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.PrintWriter;
 
-public class ConverterImplementsInterface extends JFrame implements ActionListener, WindowListener, UsdtoEuro{
+public class LabExam extends JFrame implements ActionListener, WindowListener {
+
 
     private Container contentPane = this.getContentPane();
 
@@ -15,7 +17,7 @@ public class ConverterImplementsInterface extends JFrame implements ActionListen
 
     private double cValue, fValue;
 
-    public ConverterImplementsInterface()
+    public LabExam()
     {
         this.setSize(400,100);
         this.setResizable(false);
@@ -66,13 +68,13 @@ public class ConverterImplementsInterface extends JFrame implements ActionListen
         if (c == 'C')
         {
             //Dollar to euro
-            double currency = Math.abs(d/1.14398);
+            double currency = Math.abs(d/1.18809);
             double conversions = Math.round(currency*100.0)/100.0;
             return conversions;
         }
         else {
             // euro to dollar
-            double currency = Math.abs(d / 0.874142);
+            double currency = Math.abs(d / 0.84168506);
             double conversions = Math.round(currency * 100.0) / 100.0;
             return conversions;
         }
@@ -100,7 +102,17 @@ public class ConverterImplementsInterface extends JFrame implements ActionListen
 
     @Override
     public void windowClosing(WindowEvent e) {
-        System.out.println("Window Closed");
+        try
+        {
+            PrintWriter pw = new PrintWriter("lastCurrencyConversion.txt");
+            pw.println(cValue);
+            pw.println(fValue);
+            pw.close();
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
 
         System.exit(0);
     }
@@ -133,16 +145,4 @@ public class ConverterImplementsInterface extends JFrame implements ActionListen
     public static void main(String[] args) {
         new CurrencyConverter().init();
     }
-
-    @Override
-    public int getCurrency() {
-        return 0;
-    }
-
-    @Override
-    public void setWCurrency(int i) {
-
-    }
 }
-
-

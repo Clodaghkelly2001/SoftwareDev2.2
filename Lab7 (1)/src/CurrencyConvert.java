@@ -3,8 +3,7 @@ public class CurrencyConvert  implements BaseCurrency{
     // creating the double variable USD
     private double usd = 0.0;
 
-    // Getter and Setter Function
-    @Override
+    // Getter and Setter Function    @Override
     public double getUSD() {
         //this print out just the usd value
         return usd;
