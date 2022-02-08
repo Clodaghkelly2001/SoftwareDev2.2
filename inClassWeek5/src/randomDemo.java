@@ -2,8 +2,6 @@ import java.util.Random;
 
 public class randomDemo {
 
-    public class RandomDemo {
-
         public static String jumble(String s)
         {
             String returnString = s;
@@ -26,5 +24,5 @@ public class randomDemo {
 
 
         }
-    }
 }
+
