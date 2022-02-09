@@ -6,39 +6,43 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+
 public class Lab8_1 extends JFrame implements ActionListener {
 
-    private DrawingPanel drawingArea = new DrawingPanel();
+    private DrawingPanel drawArea = new DrawingPanel();
+
     private JButton drawButton = new JButton("Draw");
+    private JButton reset = new JButton("Reset");
 
     private boolean draw = false;
 
     public Lab8_1()
     {
-        this.setTitle("Draw Shape");
-        this.setSize(750,750);
-        this.setLayout(new BoxLayout(this.getContentPane(),BoxLayout.PAGE_AXIS));
+        this.setTitle("Connect the dots");
+        this.setSize(500,500);
+        this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    public void init(){
+    public void init()
+    {
         drawButton.addActionListener(this);
 
-        this.add(drawButton);
-        this.add(drawingArea);
-
+        this.add(drawButton, BorderLayout.NORTH);
+        this.add(reset, BorderLayout.SOUTH);
+        this.add(drawArea);
         this.setVisible(true);
     }
 
+    class DrawingPanel extends JPanel implements MouseListener
+    {
 
-    class DrawingPanel extends JPanel implements MouseListener {
-
-        private ArrayList<Point> points = new ArrayList();
+        private ArrayList<Point> point = new ArrayList<>();
 
         public DrawingPanel()
         {
             addMouseListener(this);
-            this.setBackground(Color.GRAY);
+            this.setBackground(Color.LIGHT_GRAY);
         }
 
         public void paintComponent(Graphics g)
@@ -47,22 +51,21 @@ public class Lab8_1 extends JFrame implements ActionListener {
 
             if(draw)
             {
-                for(int i = 0; i < points.size() - 1; i++)
+                for(int i = 0; i < point.size() -1; i++)
                 {
-                    g.drawLine(points.get(i).x, points.get(i).y, points.get(i+1).x, points.get(i+1).y);
+                    g.drawLine(point.get(i).x, point.get(i).y, point.get(i+1).x, point.get(i+1).y);
                 }
 
-                g.drawLine(points.get(0).x, points.get(0).y, points.get(points.size()-1).x, points.get(points.size()-1).y);
-
-
+                g.drawLine(point.get(0).x, point.get(0).y, point.get(point.size()-1).x, point.get(point.size()-1).y);
             }
 
-            for(Point p : points)
+            for(Point p : point)
             {
-                g.setColor(Color.RED);
+                g.setColor(Color.GREEN);
                 g.fillOval(p.x -5, p.y - 5, 10,10);
             }
         }
+
         public void drawCalled()
         {
             repaint();
@@ -75,13 +78,13 @@ public class Lab8_1 extends JFrame implements ActionListener {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            System.out.println("mouse has been pressed");
+
         }
 
         @Override
-        public void mouseReleased(MouseEvent e) {
-            points.add(new Point(e.getX(), e.getY()));
-
+        public void mouseReleased(MouseEvent e)
+        {
+            point.add(new Point(e.getX(), e.getY()));
             repaint();
         }
 
@@ -96,8 +99,9 @@ public class Lab8_1 extends JFrame implements ActionListener {
         }
     }
 
-    class Point{
-        int x, y;
+    class Point
+    {
+        int x,y;
 
         public Point(int x, int y)
         {
@@ -106,13 +110,14 @@ public class Lab8_1 extends JFrame implements ActionListener {
         }
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        draw = true;
-        drawingArea.drawCalled();
+    public static void main(String[] args) {
+         new Lab8_1().init();
     }
 
-    public static void main(String[] args) {
-        new Lab8_1().init();
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        draw = true;
+        drawArea.drawCalled();
     }
 }
