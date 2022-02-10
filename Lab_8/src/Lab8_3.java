@@ -5,11 +5,11 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Random;
 
-public class Lab8_2 extends JFrame implements ActionListener {
+public class Lab8_3 extends JFrame implements ActionListener {
 
     private CanvasPanel canvas = new CanvasPanel();
 
-    public Lab8_2()
+    public Lab8_3()
     {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(400,400);
@@ -99,14 +99,31 @@ public class Lab8_2 extends JFrame implements ActionListener {
         public void mouseDragged(MouseEvent e) {
             if(onPress) {
 
-                double w = s.getBounds().getWidth();
-                double h = s.getBounds().getHeight();
-                double x = e.getX() - (w / 2);
-                double y = e.getY() - (h / 2);
+                double w = 0.0;
+                double h = 0.0;
 
-                //this code
-               s = new Rectangle2D.Double(x, y, w, h);
-              // s = new Ellipse2D.Double(x, y, w, h);
+                if(s instanceof Rectangle2D.Double)
+                {
+                    //double w = s.getBounds().getWidth();
+                    //double h = s.getBounds().getHeight();
+                    w = ((Rectangle2D.Double)s).getWidth();
+                    h = ((Rectangle2D.Double)s).getHeight();
+                    double x = e.getX() - (w / 2);
+                    double y = e.getY() - (h / 2);
+
+                    //this code
+                    s = new Rectangle2D.Double(x, y, w, h);
+                }
+                else{
+                    //double w = s.getBounds().getWidth();
+                    //double h = s.getBounds().getHeight();
+                    w = ((Rectangle2D.Double)s).getWidth();
+                    h = ((Rectangle2D.Double)s).getHeight();
+                    double x = e.getX() - (w / 2);
+                    double y = e.getY() - (h / 2);
+
+                    s = new Ellipse2D.Double(x, y, w, h);
+                }
 
                 repaint();
             }
@@ -121,7 +138,7 @@ public class Lab8_2 extends JFrame implements ActionListener {
 
     }
     public static void main(String[] args) {
-        new Lab8_2().init();
+        new Lab8_3().init();
     }
 
 }

@@ -29,7 +29,6 @@ public class Lab8_1 extends JFrame implements ActionListener {
         drawButton.addActionListener(this);
 
         this.add(drawButton, BorderLayout.NORTH);
-        this.add(reset, BorderLayout.SOUTH);
         this.add(drawArea);
         this.setVisible(true);
     }
