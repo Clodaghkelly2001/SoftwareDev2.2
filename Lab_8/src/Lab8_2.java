@@ -26,7 +26,9 @@ public class Lab8_2 extends JFrame implements ActionListener {
     {
 
         Shape s = null;
-        private boolean onPress;
+        private boolean onPress1;
+        private boolean onPress2;
+
         private Color [] colors = {Color.BLUE, Color.RED, Color.GREEN , Color.BLACK, Color.CYAN};
         private int colorTracker = 0;
 
@@ -67,6 +69,7 @@ public class Lab8_2 extends JFrame implements ActionListener {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+
             if(s.contains(e.getPoint())) {
                 colorTracker = (colorTracker + 1) % colors.length;
                 repaint();
@@ -75,14 +78,14 @@ public class Lab8_2 extends JFrame implements ActionListener {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            s = getRandomShape();
-            onPress = true;
+           s = getRandomShape();
+            onPress1 = true;
             repaint();
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            onPress = false;
+            onPress1 = false;
         }
 
         @Override
@@ -97,24 +100,25 @@ public class Lab8_2 extends JFrame implements ActionListener {
 
         @Override
         public void mouseDragged(MouseEvent e) {
-            if(onPress) {
+            if(onPress1 ) {
 
                 double w = s.getBounds().getWidth();
                 double h = s.getBounds().getHeight();
                 double x = e.getX() - (w / 2);
                 double y = e.getY() - (h / 2);
+                //s = new Rectangle2D.Double(x, y, w, h);
+                s = getRandomShape();
 
-                //this code
-               s = new Rectangle2D.Double(x, y, w, h);
-              // s = new Ellipse2D.Double(x, y, w, h);
-
+            }
                 repaint();
             }
-        }
 
         @Override
-        public void mouseMoved(MouseEvent e) {}
+        public void mouseMoved(MouseEvent e) {
+
+        }
     }
+
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {

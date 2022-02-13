@@ -7,35 +7,48 @@ import java.util.Random;
 
 public class Lab8_3 extends JFrame implements ActionListener {
 
-    private CanvasPanel canvas = new CanvasPanel();
+    private CanvasPanel newCanvas = new CanvasPanel();
+    private JButton rectangle = new JButton("Rectangle");
+    private JButton square = new JButton("Sqaure");
+    private JButton circle = new JButton("Circle");
+    private JButton colorGreen = new JButton("Green");
+    private JButton colorRed = new JButton("Red");
+    private JButton colorBlue = new JButton("Blue");
+
 
     public Lab8_3()
     {
+        this.setTitle("Draw Shape");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setSize(400,400);
-    }
+        this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.LINE_AXIS));
+        this.setSize(450,500);
+    }//end of lab8_3 method
 
     public void init()
     {
-        this.add(canvas);
+        this.add(newCanvas);
+        this.add(rectangle);
+        this.add(square);
+        this.add(circle);
+        this.add(colorRed);
+        this.add(colorBlue);
+        this.add(colorGreen);
         this.setVisible(true);
-    }
-
+    }//end of init
 
     class CanvasPanel extends JPanel implements MouseListener, MouseMotionListener
     {
-
-        Shape s = null;
+        Shape newShapes = null;
         private boolean onPress;
         private Color [] colors = {Color.BLUE, Color.RED, Color.GREEN , Color.BLACK, Color.CYAN};
         private int colorTracker = 0;
 
         public CanvasPanel()
         {
-            s = getRandomShape();
+            newShapes = getRandomShape();
             this.addMouseListener(this);
             this.addMouseMotionListener(this);
-        }
+        }//end of canvas panel
 
         private Shape getRandomShape()
         {
@@ -50,7 +63,7 @@ public class Lab8_3 extends JFrame implements ActionListener {
             }
             else
                 return new Ellipse2D.Double(10, 10, 50, 50);
-        }
+        }//end of getRandomShape
 
         @Override
         public void paintComponent(Graphics g)
@@ -61,84 +74,41 @@ public class Lab8_3 extends JFrame implements ActionListener {
 
             g2d.setColor(colors[colorTracker]);
 
-            g2d.fill(s);
+            g2d.fill(newShapes);
 
-        }
+        }//end of paint component
+
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if(s.contains(e.getPoint())) {
-                colorTracker = (colorTracker + 1) % colors.length;
-                repaint();
-            }
         }
 
         @Override
-        public void mousePressed(MouseEvent e) {
-            s = getRandomShape();
-            onPress = true;
-            repaint();
-        }
+        public void mousePressed(MouseEvent e) {}
 
         @Override
-        public void mouseReleased(MouseEvent e) {
-            onPress = false;
-        }
+        public void mouseReleased(MouseEvent e) {}
 
         @Override
-        public void mouseEntered(MouseEvent e) {
-
-        }
+        public void mouseEntered(MouseEvent e) {}
 
         @Override
-        public void mouseExited(MouseEvent e) {
-
-        }
+        public void mouseExited(MouseEvent e) {}
 
         @Override
-        public void mouseDragged(MouseEvent e) {
-            if(onPress) {
-
-                double w = 0.0;
-                double h = 0.0;
-
-                if(s instanceof Rectangle2D.Double)
-                {
-                    //double w = s.getBounds().getWidth();
-                    //double h = s.getBounds().getHeight();
-                    w = ((Rectangle2D.Double)s).getWidth();
-                    h = ((Rectangle2D.Double)s).getHeight();
-                    double x = e.getX() - (w / 2);
-                    double y = e.getY() - (h / 2);
-
-                    //this code
-                    s = new Rectangle2D.Double(x, y, w, h);
-                }
-                else{
-                    //double w = s.getBounds().getWidth();
-                    //double h = s.getBounds().getHeight();
-                    w = ((Rectangle2D.Double)s).getWidth();
-                    h = ((Rectangle2D.Double)s).getHeight();
-                    double x = e.getX() - (w / 2);
-                    double y = e.getY() - (h / 2);
-
-                    s = new Ellipse2D.Double(x, y, w, h);
-                }
-
-                repaint();
-            }
-        }
+        public void mouseDragged(MouseEvent e) {}
 
         @Override
         public void mouseMoved(MouseEvent e) {}
-    }
+
+    }//end of canvasPanel
 
     @Override
-    public void actionPerformed(ActionEvent actionEvent) {
+    public void actionPerformed(ActionEvent e) {
+    }//end of action event e
 
-    }
     public static void main(String[] args) {
         new Lab8_3().init();
     }
 
-}
+}//end of lab8_3 class

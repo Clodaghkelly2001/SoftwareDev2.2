@@ -9,25 +9,30 @@ import java.util.ArrayList;
 
 public class Lab8_1 extends JFrame implements ActionListener {
 
+    //creating the drawing area
     private DrawingPanel drawArea = new DrawingPanel();
 
+    //creating the draw button
     private JButton drawButton = new JButton("Draw");
-    private JButton reset = new JButton("Reset");
 
     private boolean draw = false;
 
     public Lab8_1()
     {
+        //setting up the gui
         this.setTitle("Connect the dots");
         this.setSize(500,500);
         this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
+    //the start method whic is called when the programme is executed
     public void init()
     {
+        //adding action listener to see if action
         drawButton.addActionListener(this);
 
+        //adding the buttons and the canvas to the gui and setting visibility to true
         this.add(drawButton, BorderLayout.NORTH);
         this.add(drawArea);
         this.setVisible(true);
