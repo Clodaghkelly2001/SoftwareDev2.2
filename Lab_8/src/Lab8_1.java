@@ -26,7 +26,7 @@ public class Lab8_1 extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    //the start method whic is called when the programme is executed
+    //the start method which is called when the programme is executed
     public void init()
     {
         //adding action listener to see if action
@@ -38,13 +38,16 @@ public class Lab8_1 extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    //mouse listener registers mouse events aka clicking dragging releasing which is implemented in my drawing panel class
     class DrawingPanel extends JPanel implements MouseListener
     {
 
+        //creating an array list to store the points
         private ArrayList<Point> point = new ArrayList<>();
 
         public DrawingPanel()
         {
+            //adding the mouse listener to the canvas and setting the colour
             addMouseListener(this);
             this.setBackground(Color.LIGHT_GRAY);
         }
@@ -53,8 +56,10 @@ public class Lab8_1 extends JFrame implements ActionListener {
         {
             super.paintComponent(g);
 
+            //if draw is true
             if(draw)
             {
+
                 for(int i = 0; i < point.size() -1; i++)
                 {
                     g.drawLine(point.get(i).x, point.get(i).y, point.get(i+1).x, point.get(i+1).y);
