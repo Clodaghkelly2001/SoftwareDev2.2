@@ -78,7 +78,7 @@ public class Lab8_2 extends JFrame implements ActionListener {
 
         @Override
         public void mousePressed(MouseEvent e) {
-           s = getRandomShape();
+           s = getRandomShape(/*e.getX(), e.getY()*/);
             onPress1 = true;
             repaint();
         }
