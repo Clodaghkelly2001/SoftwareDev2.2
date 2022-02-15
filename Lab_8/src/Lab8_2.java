@@ -66,13 +66,12 @@ public class Lab8_2 extends JFrame implements ActionListener {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            s = getRandomShape(e.getX(), e.getY());
-            /*for (int i = 0; i < s ; i++)
-            {
+            if (s.contains(e.getPoint())==false) {
+                s = getRandomShape(e.getX(), e.getY());
+                colorTracker = (colorTracker + 1) % colors.length;
+                repaint();
 
-            }*/
-            colorTracker = (colorTracker + 1) % colors.length;
-            repaint();
+            }
 
         }
 
