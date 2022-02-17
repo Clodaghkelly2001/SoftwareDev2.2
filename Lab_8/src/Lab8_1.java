@@ -15,6 +15,7 @@ public class Lab8_1 extends JFrame implements ActionListener {
     //creating the draw button
     private JButton drawButton = new JButton("Draw");
 
+    //draw boolean which is used to link the draw method to the draw button
     private boolean draw = false;
 
     public Lab8_1()
@@ -29,7 +30,7 @@ public class Lab8_1 extends JFrame implements ActionListener {
     //the start method which is called when the programme is executed
     public void init()
     {
-        //adding action listener to see if action
+        //adding action listener to see if action is performed
         drawButton.addActionListener(this);
 
         //adding the buttons and the canvas to the gui and setting visibility to true
@@ -59,7 +60,7 @@ public class Lab8_1 extends JFrame implements ActionListener {
             //if draw is true
             if(draw)
             {
-
+            //for loop to connect  the points
                 for(int i = 0; i < point.size() -1; i++)
                 {
                     g.drawLine(point.get(i).x, point.get(i).y, point.get(i+1).x, point.get(i+1).y);
@@ -67,14 +68,14 @@ public class Lab8_1 extends JFrame implements ActionListener {
 
                 g.drawLine(point.get(0).x, point.get(0).y, point.get(point.size()-1).x, point.get(point.size()-1).y);
             }
-
+            //colour the points we place green
             for(Point p : point)
             {
                 g.setColor(Color.GREEN);
                 g.fillOval(p.x -5, p.y - 5, 10,10);
             }
         }
-
+//when the draw button is clicked it connects the points to make a shape
         public void drawCalled()
         {
             repaint();
@@ -90,6 +91,7 @@ public class Lab8_1 extends JFrame implements ActionListener {
 
         }
 
+        //on mouse release a point is added
         @Override
         public void mouseReleased(MouseEvent e)
         {
@@ -107,7 +109,7 @@ public class Lab8_1 extends JFrame implements ActionListener {
 
         }
     }
-
+    //class point to make the points which is called when mouse is released
     class Point
     {
         int x,y;
@@ -118,11 +120,13 @@ public class Lab8_1 extends JFrame implements ActionListener {
             this.y = y;
         }
     }
-
+    //to run the gui
     public static void main(String[] args) {
          new Lab8_1().init();
     }
 
+    //calling the draw method through the drawing panel so when the draw button is pressed (action performed) draw is called and the
+    //points are connected
     @Override
     public void actionPerformed(ActionEvent e)
     {

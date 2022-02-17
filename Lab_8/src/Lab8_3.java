@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Ellipse2D;
@@ -26,7 +27,6 @@ public class Lab8_3 extends JFrame implements ActionListener {
         //setting up the gui
         this.setTitle("Buttons to Draw Shape");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setLayout(new FlowLayout());
         this.setSize(600,600);
 
         //setting the colours of buttons and the background to make it look pretty
@@ -60,9 +60,9 @@ public class Lab8_3 extends JFrame implements ActionListener {
         buttonPanel.add(colorBlue);
 
         //setting button panel visibility to true
-        this.add(buttonPanel);
+        this.add(buttonPanel, BorderLayout.PAGE_START);
 
-        this.add(Canvas);
+        this.add(Canvas,BorderLayout.CENTER);
 
         //setting canvas to true
         this.setVisible(true);
