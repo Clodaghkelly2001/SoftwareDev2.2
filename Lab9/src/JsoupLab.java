@@ -11,8 +11,7 @@ import org.jsoup.select.Elements;
 
 public class JsoupLab extends JFrame implements ActionListener, WindowListener {
 
-    //creating our double value
-    private double usd = 0.0;
+
     private Container contentPane = this.getContentPane();
 
     //creating our labels
@@ -97,16 +96,81 @@ public class JsoupLab extends JFrame implements ActionListener, WindowListener {
 
     //when a value is entered into the text box....
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e)
+    {
+        if(e.getSource() == cArea)
+        {
+            System.out.println("USD");
+            cValue = Double.parseDouble(cArea.getText());
+            convert(cValue,"USD","EUR") ;
+            convert(cValue,"USD","CNY");
+            convert(cValue,"USD","GBP");
+        }
+
+        else if(e.getSource() == fArea){
+            System.out.println("Euro");
+            fValue = Double.parseDouble(fArea.getText());
+            convert(fValue,"EUR","USD");
+            convert(fValue,"EUR","CNY");
+            convert(fValue,"EUR","GBP");
+        }
+
+        else if(e.getSource() == gArea){
+            System.out.println("Yuan");
+            gValue = Double.parseDouble(gArea.getText());
+            convert(gValue,"CYN","USD");
+            convert(gValue,"CNY","EUR");
+            convert(gValue,"CNY","GBP");
+        }
+        else if(e.getSource() == hArea){
+            System.out.println("GBP");
+            hValue = Double.parseDouble(hArea.getText());
+            convert(hValue,"GBP","USD");
+            convert(hValue,"GBP","EUR");
+            convert(hValue,"GBP","CNY");
+        }
+
     }
 
-    //main method to call upon the initiliase
-    public static void main(String[] args) {
+    public double convert(double amount, String originalCurrency, String newCurrency)
+    {
+        try {
+
+            Document doc = Jsoup.connect(String.format("https://www.xe.com/currencyconverter/convert/?Amount=%f&From=%s&To=%s", amount, originalCurrency, newCurrency)).get();
+
+            Elements elements = doc.select("p");
+
+            for (Element element : elements) {
+
+                String classes = element.className();
+                if(classes.contains("result__BigRate"))
+                {
+                    System.out.println(element.text());
+
+                    cArea.setText(element.text());
+                    fArea.setText(element.text());
+                    gArea.setText(element.text());
+                    hArea.setText(element.text());
+                }
+            }
+        }
+
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
+
+    //main method to initialize the gui
+    public static void main(String[] args)
+    {
         new JsoupLab().init();
     }
 
     @Override
-    public void windowOpened(WindowEvent e) {
+    public void windowOpened(WindowEvent e)
+    {
         System.out.println("Window Opens");
     }
 
