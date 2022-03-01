@@ -9,7 +9,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class JsoupLab extends JFrame implements ActionListener, WindowListener, Currency {
+public class JsoupLab extends JFrame implements ActionListener, WindowListener {
 
     //creating our double value
     private double usd = 0.0;
@@ -95,161 +95,9 @@ public class JsoupLab extends JFrame implements ActionListener, WindowListener, 
         this.setVisible(true);
     }
 
-    //the conversions we will be using
-    @Override
-    //this print out just the usd value
-    public double getUSD()
-    {
-        return usd;
-    }
-
-    @Override
-    //this sets our value to usd dollars as USD is our base Currency
-    public void setUSD(double value)
-    {
-        usd = value;
-    }
-
-    @Override
-    //this is our first conversion so if a euro value is entered it will convert it into dollars
-    public void euroToUSD(double value)
-    {
-        usd = (double)Math.round((value * 1.12)*100)/100;
-    }
-
-    @Override
-    //this will convert dollars to euro
-    public double usdToEuro()
-    {
-        try{
-            double amount = 1000;
-            String originalCurrency = "USD";
-            String newCurrency = "EUR";
-
-            Document doc = Jsoup.connect(String.format("https://www.xe.com/currencyconverter/convert/?Amount=%f&From=%s&To=%s", amount, originalCurrency, newCurrency)).get();
-            Elements elements = doc.select("a");
-            System.out.println(elements);
-            for (Element element : elements) {
-                //System.out.println(element);
-                String classes = element.className();
-                if(classes.contains("result__BigRate"))
-                {
-                    System.out.println(element.text());
-                }
-            }
-        }
-        catch (Exception e1)
-        {
-            e1.printStackTrace();
-        }
-
-        return cValue;
-    }
-
-    @Override
-    //this will convert usd pounds into dollars
-    public void gbpToUSD(double value)
-    {
-        usd = (double)Math.round((value * 1.34)*100)/100;
-    }
-
-    @Override
-    //this will convert usd to pounds
-    public double usdToGBP()
-    {
-        return (double) Math.round((usd / 1.34)*100)/100;
-    }
-
-
-    @Override
-    //this converts yuan to dollars
-    public void yuanToUSD(double value)
-    {
-        //double to set two decimal places and math.round rounds it to the nearest decimal
-        usd = (double)Math.round((value * 0.15)*100)/100;
-    }
-
-    @Override
-    //this converts dollars to yuan
-    public double usdToYuan()
-    {
-        return (double)Math.round((usd / 0.15)*100)/100;
-    }
-
-
-
     //when a value is entered into the text box....
     @Override
     public void actionPerformed(ActionEvent e) {
-
-        //this is if a value is entered in dollars
-        if (e.getSource() ==  cArea)
-        {
-
-            /*try{
-                double amount = 1000;
-                String originalCurrency = "USD";
-                String newCurrency = "EUR";
-
-                Document doc = Jsoup.connect(String.format("https://www.xe.com/currencyconverter/convert/?Amount=%f&From=%s&To=%s", amount, originalCurrency, newCurrency)).get();
-                Elements elements = doc.select("a");
-                System.out.println(elements);
-                for (Element element : elements) {
-                    //System.out.println(element);
-                    String classes = element.className();
-                    if(classes.contains("result__BigRate"))
-                    {
-                        System.out.println(element.text());
-                    }
-                }
-            }
-
-            catch (Exception e1)
-            {
-                e1.printStackTrace();
-            }*/
-
-            //calls on the currency converter to set the usd and convert it into euro,yuan, and GBP
-            cValue = Double.parseDouble(cArea.getText());
-            setUSD(cValue);
-        }
-
-        //if a value is entered in euro
-        else if (e.getSource() ==  fArea)
-        {
-/*            //parse means get value
-            //calls on the currency converter method euro to usd and converts it into dollars which converts it into yuan and gbp
-            fValue = Double.parseDouble(fArea.getText());
-            euroToUSD(fValue);*/
-        }
-
-        //if a value is entered in yuan
-        else if (e.getSource() ==  gArea)
-        {
-/*            //calls on the currency converter method yuan to usd and converts it into dollars which converts it into euro and gbp
-            gValue = Double.parseDouble(gArea.getText());
-            yuanToUSD(gValue);*/
-        }
-
-        //if a value is entered in GBP
-        else if (e.getSource() ==  hArea)
-        {
-/*            //calls on the currency converter method gbp to usd and converts it into dollars which converts it into euro and yuan
-            hValue = Double.parseDouble(hArea.getText());
-            gbpToUSD(hValue);*/
-        }
-        //setting the values to the different methods we called upon above so that when the programme is ran they are linked and the conversions happen
-/*        cValue = getUSD();
-        fValue = element.text();
-        gValue = usdToYuan();
-        hValue = usdToGBP();*/
-
-        //printing out the answer
-        cArea.setText(""+ cValue);
-        fArea.setText(""+ fValue);
-        gArea.setText(""+ gValue);
-        hArea.setText(""+ hValue);
-
     }
 
     //main method to call upon the initiliase
