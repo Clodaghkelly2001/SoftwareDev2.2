@@ -11,7 +11,6 @@ import org.jsoup.select.Elements;
 
 public class JsoupLab extends JFrame implements ActionListener, WindowListener {
 
-
     private Container contentPane = this.getContentPane();
 
     //creating our labels
@@ -21,6 +20,11 @@ public class JsoupLab extends JFrame implements ActionListener, WindowListener {
     //creating our text fields
     private JTextField cArea = new JTextField(10), fArea = new JTextField(10), gArea = new JTextField(10), hArea = new JTextField(10);
     private Double cValue, fValue, gValue, hValue;
+
+    double USD = 0.0;
+    double EUR = 0.0;
+    double GBP = 0.0;
+    double CNY = 0.0;
 
     //setting up the gui
     public JsoupLab() {
@@ -100,35 +104,57 @@ public class JsoupLab extends JFrame implements ActionListener, WindowListener {
     {
         if(e.getSource() == cArea)
         {
-            System.out.println("USD");
             cValue = Double.parseDouble(cArea.getText());
-            convert(cValue,"USD","EUR") ;
-            convert(cValue,"USD","CNY");
-            convert(cValue,"USD","GBP");
+            USD = cValue;
+            EUR = convert(cValue,"USD","EUR");
+            CNY = convert(cValue,"USD","CNY");
+            GBP = convert(cValue,"USD","GBP");
+            cArea.setText(""+cValue);
+            fArea.setText(""+ EUR);
+            gArea.setText(""+CNY);
+            hArea.setText(""+ GBP);
         }
 
         else if(e.getSource() == fArea){
-            System.out.println("Euro");
             fValue = Double.parseDouble(fArea.getText());
-            convert(fValue,"EUR","USD");
-            convert(fValue,"EUR","CNY");
-            convert(fValue,"EUR","GBP");
+            EUR = fValue;
+            GBP = convert(fValue,"EUR","GBP");
+            CNY = convert(fValue,"EUR","CNY");
+            USD = convert(fValue,"EUR","USD");
+            cArea.setText(""+USD);
+            fArea.setText(""+ fValue);
+            gArea.setText(""+CNY);
+            hArea.setText(""+ GBP);
         }
 
         else if(e.getSource() == gArea){
-            System.out.println("Yuan");
             gValue = Double.parseDouble(gArea.getText());
-            convert(gValue,"CYN","USD");
-            convert(gValue,"CNY","EUR");
-            convert(gValue,"CNY","GBP");
+            CNY = gValue;
+            USD = convert(gValue,"CNY","USD");
+            EUR = convert(gValue,"CNY","EUR");
+            GBP = convert(gValue,"CNY","GBP");
+            cArea.setText(""+USD);
+            fArea.setText(""+ EUR);
+            gArea.setText(""+gValue);
+            hArea.setText(""+ GBP);
         }
+
         else if(e.getSource() == hArea){
-            System.out.println("GBP");
             hValue = Double.parseDouble(hArea.getText());
-            convert(hValue,"GBP","USD");
-            convert(hValue,"GBP","EUR");
-            convert(hValue,"GBP","CNY");
+            GBP = hValue;
+            USD = convert(hValue,"GBP","USD");
+            EUR =convert(hValue,"GBP","EUR");
+            CNY = convert(hValue,"GBP","CNY");
+            cArea.setText(""+USD);
+            fArea.setText(""+ EUR);
+            gArea.setText(""+CNY);
+            hArea.setText(""+ hValue);
         }
+
+        cArea.setText(""+USD);
+        fArea.setText(""+ EUR);
+        gArea.setText(""+CNY);
+        hArea.setText(""+ GBP);
 
     }
 
@@ -147,10 +173,10 @@ public class JsoupLab extends JFrame implements ActionListener, WindowListener {
                 {
                     System.out.println(element.text());
 
-                    cArea.setText(element.text());
-                    fArea.setText(element.text());
-                    gArea.setText(element.text());
-                    hArea.setText(element.text());
+                    cArea.setText(element.text().replaceAll("USD", ""));
+                    fArea.setText(element.text().replaceAll("Euros", ""));
+                    gArea.setText(element.text().replaceAll("Chinese Yuan Renminbi", ""));
+                    hArea.setText(element.text().replaceAll("British Pounds", ""));
                 }
             }
         }
