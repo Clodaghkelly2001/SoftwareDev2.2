@@ -110,9 +110,7 @@ public class JsoupLab extends JFrame implements ActionListener, WindowListener {
             CNY = convert(cValue,"USD","CNY");
             GBP = convert(cValue,"USD","GBP");
             cArea.setText(""+cValue);
-            fArea.setText(""+ EUR);
-            gArea.setText(""+CNY);
-            hArea.setText(""+ GBP);
+
         }
 
         else if(e.getSource() == fArea){
@@ -121,10 +119,7 @@ public class JsoupLab extends JFrame implements ActionListener, WindowListener {
             GBP = convert(fValue,"EUR","GBP");
             CNY = convert(fValue,"EUR","CNY");
             USD = convert(fValue,"EUR","USD");
-            cArea.setText(""+USD);
             fArea.setText(""+ fValue);
-            gArea.setText(""+CNY);
-            hArea.setText(""+ GBP);
         }
 
         else if(e.getSource() == gArea){
@@ -133,10 +128,7 @@ public class JsoupLab extends JFrame implements ActionListener, WindowListener {
             USD = convert(gValue,"CNY","USD");
             EUR = convert(gValue,"CNY","EUR");
             GBP = convert(gValue,"CNY","GBP");
-            cArea.setText(""+USD);
-            fArea.setText(""+ EUR);
             gArea.setText(""+gValue);
-            hArea.setText(""+ GBP);
         }
 
         else if(e.getSource() == hArea){
@@ -145,16 +137,13 @@ public class JsoupLab extends JFrame implements ActionListener, WindowListener {
             USD = convert(hValue,"GBP","USD");
             EUR =convert(hValue,"GBP","EUR");
             CNY = convert(hValue,"GBP","CNY");
-            cArea.setText(""+USD);
-            fArea.setText(""+ EUR);
-            gArea.setText(""+CNY);
             hArea.setText(""+ hValue);
         }
 
-        cArea.setText(""+USD);
-        fArea.setText(""+ EUR);
-        gArea.setText(""+CNY);
-        hArea.setText(""+ GBP);
+        //cArea.setText(""+USD);
+        //fArea.setText(""+ EUR);
+        //gArea.setText(""+CNY);
+        //hArea.setText(""+ GBP);
 
     }
 
@@ -173,13 +162,14 @@ public class JsoupLab extends JFrame implements ActionListener, WindowListener {
                 {
                     System.out.println(element.text());
 
-                    cArea.setText(element.text().replaceAll("USD", ""));
-                    fArea.setText(element.text().replaceAll("Euros", ""));
+                    cArea.setText(element.text());
+                    fArea.setText(element.text());
                     gArea.setText(element.text().replaceAll("Chinese Yuan Renminbi", ""));
                     hArea.setText(element.text().replaceAll("British Pounds", ""));
                 }
             }
         }
+
 
         catch(Exception e)
         {
