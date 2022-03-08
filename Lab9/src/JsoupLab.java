@@ -140,15 +140,16 @@ public class JsoupLab extends JFrame implements ActionListener, WindowListener {
             hArea.setText(""+ hValue);
         }
 
-        //cArea.setText(""+USD);
-        //fArea.setText(""+ EUR);
-        //gArea.setText(""+CNY);
-        //hArea.setText(""+ GBP);
+        cArea.setText(""+USD);
+        fArea.setText(""+ EUR);
+        gArea.setText(""+CNY);
+        hArea.setText(""+ GBP);
 
     }
 
     public double convert(double amount, String originalCurrency, String newCurrency)
     {
+        double returnValue = 00.0;
         try {
 
             Document doc = Jsoup.connect(String.format("https://www.xe.com/currencyconverter/convert/?Amount=%f&From=%s&To=%s", amount, originalCurrency, newCurrency)).get();
@@ -161,11 +162,8 @@ public class JsoupLab extends JFrame implements ActionListener, WindowListener {
                 if(classes.contains("result__BigRate"))
                 {
                     System.out.println(element.text());
+                    returnValue = Double.parseDouble(element.text().substring(0, element.text().indexOf(".") + 3).replaceAll("," , ""));
 
-                    cArea.setText(element.text());
-                    fArea.setText(element.text());
-                    gArea.setText(element.text().replaceAll("Chinese Yuan Renminbi", ""));
-                    hArea.setText(element.text().replaceAll("British Pounds", ""));
                 }
             }
         }
@@ -175,7 +173,7 @@ public class JsoupLab extends JFrame implements ActionListener, WindowListener {
         {
             e.printStackTrace();
         }
-        return 0.0;
+        return returnValue;
     }
 
     //main method to initialize the gui
