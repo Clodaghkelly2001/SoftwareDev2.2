@@ -1,9 +1,11 @@
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class LocalEleStat {
 
-    private String surname,firstName,party,localElectoralArea;
+    private String no, surname,firstName,party,localElectoralArea;
     private Address address;
 
     public LocalEleStat(String s)
@@ -17,10 +19,11 @@ public class LocalEleStat {
             address = new Address(sc.next());
             String[] part3 = sc.next().split(",");
 
-            surname = part1[1];
-            firstName = part1[2];
+            no = part1[0];
+            surname = encode(part1[1]);
+            firstName = encode(part1[2]);
 
-            party = part3[1];
+            party = encode(part3[1]);
             localElectoralArea = part3[2];
         }
         catch (Exception e)
@@ -30,15 +33,58 @@ public class LocalEleStat {
         }
     }
 
+    private String encode(String s)
+    {
+        ByteBuffer buffer = StandardCharsets.UTF_8.encode(s);
+        return StandardCharsets.UTF_8.decode(buffer).toString();
+    }
+
+    private String pad(String s, int padding)
+    {
+        String temp = "";
+        for(int i = 0; i < padding; i++)
+        {
+            temp = temp + " ";
+        }
+
+        return (s+temp).substring(0, padding);
+
+    }
+
+    public String toCSV()
+    {
+        return String.format("%s,%s,%s,%s,%s",no, surname, firstName, party, localElectoralArea);
+    }
     @Override
     public String toString() {
-        return "LocalEleStat{" +
-                "surname='" + surname + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", party='" + party + '\'' +
-                ", localElectoralArea='" + localElectoralArea + '\'' +
-                ", address=" + address +
-                '}';
+
+
+        return String.format("<tr><td>%s</td><td>%s</td><td>%s</td></tr>", (surname+"," +firstName), party, localElectoralArea);
+        //return surname + ", \t" + firstName + "\t(" + party +") \t\t\t" + localElectoralArea;
+    }
+
+    public String getNo() {
+        return no;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getParty() {
+        return party;
+    }
+
+    public String getLocalElectoralArea() {
+        return localElectoralArea;
+    }
+
+    public Address getAddress() {
+        return address;
     }
 
     class Address
@@ -50,11 +96,11 @@ public class LocalEleStat {
             lines = s.split(",");
         }
 
+
         @Override
         public String toString() {
-            return "Address{" +
-                    "lines=" + Arrays.toString(lines) +
-                    '}';
+            return  Arrays.toString(lines);
+
         }
     }
 }
