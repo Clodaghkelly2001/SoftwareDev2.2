@@ -12,6 +12,7 @@ public class Lab9PlayerMove extends JFrame implements KeyListener
     private CanvasPanel movementPlane = new CanvasPanel();
     private JLabel Instructions = new JLabel("Press 'W' to move up \n Press 'S' to move down \n Press 'A' to move left \n Press 'D' to move right");
 
+    //setting up the gui
     public Lab9PlayerMove()
     {
         setSize(750, 750);
@@ -20,6 +21,7 @@ public class Lab9PlayerMove extends JFrame implements KeyListener
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
+    //called when the programme is ran
     public void init()
     {
         this.add(Instructions);
@@ -40,6 +42,7 @@ public class Lab9PlayerMove extends JFrame implements KeyListener
     @Override
     public void keyReleased(KeyEvent e) {
 
+        //to move the shape. the number is the key you press aka W,A,S,D
         if(e.getKeyCode() == 68 ){
             movementPlane.moveRight();
         }
@@ -66,7 +69,7 @@ public class Lab9PlayerMove extends JFrame implements KeyListener
 
         private int xPos, yPos, xStep, yStep;
 
-
+        //setting the location of the shape??
         public CanvasPanel()
         {
             xPos = 30;
@@ -79,10 +82,12 @@ public class Lab9PlayerMove extends JFrame implements KeyListener
         @Override
         public void paintComponent(Graphics g)
         {
+            //getting the shapes to appear on the canvas
             super.paintComponent(g);
             drawShapes(g);
         }
 
+        //draws the shape
         public void drawShapes(Graphics g)
         {
             Graphics2D g2d = (Graphics2D) g;
@@ -101,18 +106,21 @@ public class Lab9PlayerMove extends JFrame implements KeyListener
 
         public void moveUp()
         {
+            //to move the shape up
             yPos = yPos - yStep;
             repaint();
         }
 
         public void moveDown()
         {
+            //to move the shape down
             yPos = yPos + yStep;
             repaint();
         }
 
         public void moveLeft()
         {
+            //to move the shape left
             xPos =  xPos - xStep;
 
             repaint();
@@ -120,6 +128,7 @@ public class Lab9PlayerMove extends JFrame implements KeyListener
 
         public void moveRight()
         {
+            //to move the shape right
             xPos =  xPos + xStep;
 
             repaint();
@@ -127,7 +136,7 @@ public class Lab9PlayerMove extends JFrame implements KeyListener
 
 
     }
-
+//to run the gui
     public static void main(String[] args) {
         new Lab9PlayerMove().init();
     }

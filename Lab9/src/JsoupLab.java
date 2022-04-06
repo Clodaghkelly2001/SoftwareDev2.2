@@ -102,6 +102,7 @@ public class JsoupLab extends JFrame implements ActionListener, WindowListener {
     @Override
     public void actionPerformed(ActionEvent e)
     {
+        //to convert from usd
         if(e.getSource() == cArea)
         {
             cValue = Double.parseDouble(cArea.getText());
@@ -113,6 +114,7 @@ public class JsoupLab extends JFrame implements ActionListener, WindowListener {
 
         }
 
+        //to convert from euro
         else if(e.getSource() == fArea){
             fValue = Double.parseDouble(fArea.getText());
             EUR = fValue;
@@ -122,6 +124,7 @@ public class JsoupLab extends JFrame implements ActionListener, WindowListener {
             fArea.setText(""+ fValue);
         }
 
+        //to convert fron Yuan
         else if(e.getSource() == gArea){
             gValue = Double.parseDouble(gArea.getText());
             CNY = gValue;
@@ -131,6 +134,7 @@ public class JsoupLab extends JFrame implements ActionListener, WindowListener {
             gArea.setText(""+gValue);
         }
 
+        //to convert from GBP
         else if(e.getSource() == hArea){
             hValue = Double.parseDouble(hArea.getText());
             GBP = hValue;
@@ -149,6 +153,7 @@ public class JsoupLab extends JFrame implements ActionListener, WindowListener {
 
     public double convert(double amount, String originalCurrency, String newCurrency)
     {
+        //to parse XE.com
         double returnValue = 00.0;
         try {
 
